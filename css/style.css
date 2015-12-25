@@ -5,3 +5,7 @@
 /* #7dbeff サックス     */
 /* #444444 テキストカラー */
 /* #8a8a7b リンクカラー   */
+.gmap {
+  background-color: #f7f7f7;
+  height: 400px;
+}
