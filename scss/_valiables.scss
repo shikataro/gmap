@@ -1,0 +1,34 @@
+@charset "shift_jis";
+
+$siteWidth       : 960px;
+$siteWidth--spPo : 320px;
+$siteWidth--spLa : 480px;
+$siteWidth--iPad : 768px;
+
+$white   : #ffffff; // 白
+$black   : #000000; // 黒
+
+$base    : #f3f2eb;   /* #f3f2eb ベースカラー */
+$red     : #d41e17;   /* #d41e17 赤           */
+$pink    : #ff8c8c;   /* #ff8c8c ピンク       */
+$sax     : #7dbeff;   /* #7dbeff サックス     */
+
+$text      : #444;    /* #444444 テキストカラー */
+$textLink  : #8a8a7b; /* #8a8a7b リンクカラー   */
+$textHover : lighten($text, 10%);
+
+// デフォルトフォント
+$font      : 'YuGothic', 'Yu Gothic', '游ゴシック', '游ゴシック体', 'Hiragino Kaku Gothic ProN', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN', 'Meiryo', 'メイリオ', Verdana, Helvetica, Arial, sans-serif;
+$fontSerif : 'Times New Roman', Times,'ヒラギノ明朝 ProN W3','Hiragino Mincho ProN',serif;
+
+$fontL       : 'UD新ゴ L', 'UD Shin Go Light', $font;
+$fontR       : 'UD新ゴ R', 'UD Shin Go Regular', $font;
+$fontM       : 'UD新ゴ M', 'UD Shin Go Medium', $font;
+$fontDB      : 'UD新ゴ DB', 'UD Shin Go DemiBold', $font;
+$fontB       : 'UD新ゴ B', 'UD Shin Go Bold', $font;
+$fontH       : 'UD新ゴ H', 'UD Shin Go Heavy', $font;
+$fontSerifL  : '黎ミン L', 'Reimin Light', $fontSerif;
+$fontSerifR  : '黎ミン R', 'Reimin Regular', $fontSerif;
+$fontSerifM  : '黎ミン M', 'Reimin Medium', $fontSerif;
+$fontSerifB  : '黎ミン B', 'Reimin Bold', $fontSerif;
+$fontSerifEB : '黎ミン EB', 'Reimin ExtraBold', $fontSerif;

@@ -1,0 +1,215 @@
+@charset "Shift_JIS";
+// /********************************************************************************************
+// 
+// mixin
+// 
+// ********************************************************************************************/
+
+// フッター固定
+@mixin footer-fix($FTR_PADDING-TOP, $FTR_HEIGHT, $FTR_PADDING-BOTTOM) {
+    $tmp_FTR_HEIGHT : if($FTR_HEIGHT == "auto", 0, $FTR_HEIGHT);
+    $FTR_TOTAL      : $tmp_FTR_HEIGHT + $FTR_PADDING-TOP + $FTR_PADDING-BOTTOM;
+
+    html, body{
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    #{$SITE_WRAP_ELLEMENT} {
+        position: relative;
+        min-height: 100%;
+    }
+    #{$SITE_CONTENTS_ELLEMENT} {
+    /* padding-bottom = whole size of footer */
+        margin: 0 auto;
+        padding-bottom: $FTR_TOTAL;
+    }
+    #{$SITE_FOOTER_ELLEMENT}{
+    /* height + padding-top + padding-bottom = margin-top ( negative ) */
+        width: 100%;
+        height: $FTR_HEIGHT;
+        margin-top: -$FTR_TOTAL;
+        padding-top: $FTR_PADDING-TOP;
+        padding-bottom: $FTR_PADDING-BOTTOM;
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+@mixin clearfix(){
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    clear: both;
+}
+
+@mixin opacity( $op ) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$op*100})";
+    filter: alpha(opacity=#{$op*100});
+    opacity: $op;
+}
+@mixin font-size( $fz ){
+    font-size: #{$fz}px;
+    font-size: #{$fz/10}rem;
+}
+@mixin hide-text( $imgUrl : null ){
+    display:block;
+    text-indent:-9999px;
+    overflow:hidden;
+    @if $imgUrl {
+        background: url( $imgUrl ) 0 0 no-repeat;
+        width : image-width( $imgUrl );
+        height: image-height( $imgUrl );
+    }
+}
+
+// css三角形
+@mixin triangle ($width, $color, $direction) {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    border-color: transparent;
+    border-width: $width;
+    border-style: solid;
+    border-#{$direction}-color: $color;
+}
+
+@mixin bg-icon($imgUrl, $x: 0, $y: 0, $pl: null) {
+    background: url(inline-image($imgUrl)) $x $y no-repeat;
+  @if $pl {
+    padding-left: $pl + px;
+  } @else {
+    padding-left: image-width($imgUrl) + $x + 4;
+  }
+}
+
+
+// auto numbering indented list
+// # .numbered{
+// #   @include auto-numbers(li, ". ", item, ul);
+// # }
+@mixin auto-numbers ($numbered-element, $sep, $counter: item, $nested-parent: false ) {
+    $sel: ();
+    @if $nested-parent {
+        $sel: append($sel, unquote($nested-parent));
+
+        #{$nested-parent}{
+            list-style: none;
+            margin-left: 0;
+        }
+    }
+    $sel: append($sel, unquote('&'), comma);
+
+    #{$sel}{
+        counter-reset: #{$counter};
+        > #{$numbered-element}{
+            &:before{
+                counter-increment: #{$counter};
+                content: if($nested-parent, counters(#{$counter}, "#{$sep} ") "#{$sep} ", counter(#{$counter}) "#{$sep} ") ;
+            }
+        }
+    }
+}
+
+// emboss box element
+@mixin box-emboss($out-color, $out-opacity, $inset-color, $inset-opacity){
+    box-shadow: rgba($out-color, $out-opacity) 0 1px 0, inset rgba($inset-color, $inset-opacity) 0 1px 0;
+}
+
+// letterpress
+@mixin letterpress ($color, $opacity) {
+    text-shadow: rgba($color, $opacity) 0 1px 0;
+}
+
+// 3d Button
+@mixin btn3d ($color){
+    background: $color;
+    position: relative;
+    display: inline-block;
+    border-radius: 6px;
+    text-align: center;
+    transition: top .01s linear;
+    box-shadow: 0 0 0 1px $color inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 rgba($color, .7), 0 8px 0 1px rgba(0,0,0,.4), 0 8px 8px 1px rgba(0,0,0,0.5);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    &:active{
+        top: 0.5em;
+        box-shadow: 0 0 0 1px $color inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 0 0 1px rgba(0,0,0,0.4);
+    }
+}
+
+
+// /********************************************************************************************
+// 
+// placeholder
+// 
+// ********************************************************************************************/
+
+// clearfix
+%clearfix{
+    &:after{
+        @include clearfix();
+    }
+}
+
+// box-shadow
+%box-shadow{
+    @include box-shadow( 1px 2px 4px rgba(0,0,0,.25) );
+}
+
+// awesome font
+%fa{
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// a letter
+%sliceText{
+    display: block;
+    width: 1em;
+    margin: 0 auto;
+    // @include mq_mobile( 'portrait', 'future' ){
+    //     display: inline;
+    //     width: auto;
+    // }
+    // @include mq_mobile( 'landscape', 'future' ){
+    //     display: inline;
+    //     width: auto;
+    // }
+    // @include mq_tablet( 'portrait', 'modern' ){
+    //     display: inline;
+    //     width: auto;
+    // }
+}
+
+// rotate 'long' character ※canary非対応
+%sliceTextRotate{
+    transform-origin: 50% 50%;
+    transform: rotate( 90deg );
+    // @include mq_mobile( 'portrait', 'future' ){
+    //     transform: rotate( 0deg );
+    // }
+    // @include mq_mobile( 'landscape', 'future' ){
+    //     transform: rotate( 0deg );
+    // }
+    // @include mq_tablet( 'portrait', 'modern' ){
+    //     transform: rotate( 0deg );
+    // }
+}
+
+%replaceImg{
+    display: block;
+    text-indent: -9999px;
+    overflow: hidden;
+}
