@@ -1,2 +1,3 @@
 # gmap
-google map on jquery
+
+google map control on jquery.
